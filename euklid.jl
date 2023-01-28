@@ -35,6 +35,34 @@ function euklid(n1, n2)
     return smaller
 end
 
+function euklid2(a, b)
+    if b == 0
+        return a
+    else
+        return euklid2(b, mod(a, b))
+    end
+end
 
+function gcd2(a, b)
+    neg = a < 0
+    while b != 0
+        t = b
+        b = rem(a, b)
+        a = t
+    end
+    g = abs(a)
+    neg ? -g : g
+end
 
+dim_size = 500
+number_vec1 = floor.(collect(range(1, 50000; length=dim_size)))
+number_vec2 = floor.(collect(range(1, 50000; length=dim_size)))
 
+my_matrix = zeros(dim_size, dim_size);
+for (index1, n1) in enumerate(number_vec1)
+    for (index2, n2) in enumerate(number_vec2)
+        my_matrix[index1, index2] = euklid(n1, n2)
+    end
+end
+
+heatmap(my_matrix)
